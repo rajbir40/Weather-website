@@ -1,0 +1,40 @@
+.container{
+    display: grid;
+    margin: 4%;
+}
+body{
+    background-color: beige;
+
+}
+#card1{
+    grid-row: 1;
+    grid-column: 1;
+    margin: 3%;
+}
+
+#card2{
+    grid-row: 1;
+    grid-column: 2;
+    margin: 3%;
+}
+
+#card3{
+    grid-row: 1;
+    grid-column: 3;
+    margin: 3%;
+}
+#heading{
+    background: url('./clouds.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    padding: 3%;
+    font-size: 350%;
+    color: black;
+}
+.card-header{
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-style: italic;
+}

@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e86b1c0a60.js" crossorigin="anonymous"></script>
+</head>
+<style>
+    .carousel-item {
+        display: none;
+    }
+
+    .carousel-item.active {
+        display: block;
+    }
+</style>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <img alt="" src="./assets/media/logo-dark.png">
+        <img src="./icon.jpg" alt="">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="./test.html">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cities
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="./test.html">Delhi</a></li>
+                        <li><a class="dropdown-item" href="./allahabad.html">Allahabad</a></li>
+                        <li><a class="dropdown-item" href="./chandigarh.html">Chandigarh</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="search">
+                <input id="city" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit" id="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid" id="view-1">
+    <h1 class="my-4 text-center" id="delhi">Weather for <span id="cityName"></span></h1>
+    <main>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm" style="border-color:rgb(13 110 253) ;">
+                    <div class="card-header py-3" style="background-color: rgb(13 110 253);">
+                        <h4 class="my-0 fw-normal" style="color: white;">Temperatures</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"> <span id="temp2"></span><small class="text-body-secondary fw-light"> °C</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Temperature is <span id="temp"></span></li>
+                            <li>Min temp is <span id="min_temp"></span></li>
+                            <li>Max temp is <span id="max_temp"></span></li>
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm" style="border-color:rgb(13 110 253) ;">
+                    <div class="card-header py-3" style="background-color: rgb(13 110 253);">
+                        <h4 class="my-0 fw-normal" style="color: white;">Humidity</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><span id="humidity2"></span><small class="text-body-secondary fw-light"> %</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Cloud PCT is <span id="cloud_pct"></span></li>
+                            <li>Feels like <span id="feels_like"></span></li>
+                            <li>Humidity is <span id="humidity"></span></li>
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border-primary">
+                    <div class="card-header py-3 text-bg-primary border-primary">
+                        <h4 class="my-0 fw-normal">Wind Info</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><span id="wind_speed2"></span> km/h<small class="text-body-secondary fw-light"></small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Wind Degree is <span id="wind_degrees"></span></li>
+                            <li>Wind Speed is <span id="wind_speed"></span></li>
+                            <!-- <li>Sunrise time is <span id="sunrise"></span></li> -->
+                            <li>Sunset time is <span id="sunset"></span></li>
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>
+</div>
+<h2 class="display-6 text-center mb-4 mt-5" style="font-weight: 500 !important;">Hourly Update</h2>
+<p style="color: gray; text-align: center;">Stay up to date with the weather conditions of your preferred cities</p>
+<div  class="carousel slide" data-bs-ride="carousel" id="slider2">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./thermometer-sun.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Maximum Temperature: </p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3" data-category="temperature">
+                    <div class="img-container">
+                        <img src="./thermometer-snow.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="min_temp_card">Minimum temperature: </p>
+                    </div>
+                </div>
+
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./droplet-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Humidity: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cloud_pct: </p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./sunset.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Sunset: </p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./sunrise.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Sunrise: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="spacer"></div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<div  class="carousel slide img-fluid " data-bs-ride="carousel" id="slider1">
+
+
+    <div class="carousel-inner">
+
+
+        <div class="carousel-item active">
+
+
+            <div class="d-flex justify-content-center">
+
+
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./thermometer-sun.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Maximum Temperature: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" data-category="temperature">
+                    <div class="img-container">
+                        <img src="./thermometer-snow.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="min_temp_card">Minimum temperature: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./droplet-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Humidity: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Cloud_pct: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./sunset.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Sunset: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3">
+                    <div class="img-container">
+                        <img src="./sunrise.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Sunrise: </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+
+
+
+<h2 class="display-6 text-center mb-4 mt-5" style="font-weight: 500 !important;">Weather of some famous cities</h2>
+<p style="color: gray; text-align: center;">Stay up to date with the weather conditions of some popular cities for
+    your trip</p>
+<div  class="carousel slide" data-bs-ride="carousel" id="slider4">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="italy-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Italy </p>
+                        <p class="card-text"> Partly Cloudy</p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3" id="shanghai-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./thermometer-snow.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="min_temp_card">Shanghai </p>
+                        <p class="card-text">Snowy</p>
+                    </div>
+                </div>
+
+                <div class="card col-md-2 my-3 mx-3" id="toronto-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./droplet-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Toronto</p>
+                        <p class="card-text">Humidity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="beijing-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Beijing </p>
+                        <p class="card-text">Heavy Rain</p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3" id="newyork-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./sunset.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">New York</p>
+                        <p class="card-text">Haze</p>
+                    </div>
+                </div>
+                <div class="card col-md-2 my-3 mx-3" id="adminton-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 4vh;">
+                    <div class="img-container2">
+                        <img src="./sunrise.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Adminton </p>
+                        <p class="card-text">Clear</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<div  class="carousel slide mb-5 " data-bs-ride="carousel" id="slider3">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="italy-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Italy </p>
+                        <p class="card-text"> Partly Cloudy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="shanghai-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./thermometer-snow.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" id="min_temp_card">Shanghai </p>
+                        <p class="card-text">Snowy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+
+                <div class="card col-md-2 my-3 mx-3" id="toronto-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./droplet-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Toronto</p>
+                        <p class="card-text">Humidity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="beijing-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./clouds-fill.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Beijing </p>
+                        <p class="card-text">Heavy Rain</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="newyork-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./sunset.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">New York</p>
+                        <p class="card-text">Haze</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-item ">
+            <div class="d-flex justify-content-center">
+                <div class="card col-md-2 my-3 mx-3" id="adminton-image"
+                    style="color: white; font-weight: 1000 !important; font-size: 34px;">
+                    <div class="img-container2">
+                        <img src="./sunrise.svg" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Adminton </p>
+                        <p class="card-text">Clear</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+        data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<div class="footer">
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-cta pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="cta-text">
+                                <h4>Find us</h4>
+                                <span>1010 Avenue, sw 54321, chandigarh</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="fas fa-phone"></i>
+                            <div class="cta-text">
+                                <h4>Call us</h4>
+                                <span>9876543210</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-4 mb-30">
+                        <div class="single-cta">
+                            <i class="far fa-envelope-open"></i>
+                            <div class="cta-text">
+                                <h4>Mail us</h4>
+                                <span>thunderpro@info.com</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-content pt-5 pb-5">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-logo">
+                                <a href="index.html"><img src="./icon.jpg" class="img-fluid" alt="logo"></a>
+                            </div>
+                            <div class="footer-text">
+                                <p style="color:white">Stay Safe With Weather Updates.</p>
+                            </div>
+                            <div class="footer-social-icon">
+                                <span>Follow us</span>
+                                <a href="#"><i class="fab fa-facebook-f facebook-bg"></i></a>
+                                <a href="#"><i class="fab fa-twitter twitter-bg"></i></a>
+                                <a href="#"><i class="fab fa-google-plus-g google-bg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Useful Links</h3>
+                            </div>
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">about</a></li>
+                                <li><a href="#">services</a></li>
+                                <li><a href="#">portfolio</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Our Services</a></li>
+                                <li><a href="#">Expert Team</a></li>
+                                <li><a href="#">Contact us</a></li>
+                                <li><a href="#">Latest News</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                        <div class="footer-widget">
+                            <div class="footer-widget-heading">
+                                <h3>Subscribe</h3>
+                            </div>
+                            <div class="footer-text mb-25">
+                                <p id="message">Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                                <p id="writeback"></p>
+                            </div>
+                            <div class="subscribe-form" id="submit-submit">
+                                <form action="#">
+                                    <input type="text" placeholder="Email Address">
+                                    <button onclick="submitconfirmation()"><i class="fab fa-telegram-plane"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                        <div class="copyright-text">
+                            <p>Copyright &copy; 2024, All Right Reserved <a href="#">Thunder Pro</a></p>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                        <div class="footer-menu">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">Terms</a></li>
+                                <li><a href="#">Privacy</a></li>
+                                <li><a href="#">Policy</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<!-- <script src="script1.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    const url = 'https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=Seattle';
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '65ca83a404msh4027228bfe9e2f1p1dd46cjsn9ab9c8062f1b',
+		'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+	}
+};
+
+const getWeather = (city) => {
+	cityName.innerHTML =  city
+    fetch(`https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=` + city, options)
+	.then(response => response.json())
+	.then((response) => {
+		console.log(response);
+
+		cloud_pct.innerHTML = response.cloud_pct;
+		temp.innerHTML = response.temp;
+		temp2.innerHTML = response.temp;
+		feels_like.innerHTML = response.feels_like;
+		humidity.innerHTML = response.humidity;
+		humidity2.innerHTML = response.humidity;
+		min_temp.innerHTML = response.min_temp;
+		max_temp.innerHTML = response.max_temp;
+		wind_speed.innerHTML = response.wind_speed;
+		wind_speed2.innerHTML = response.wind_speed;
+		wind_degrees.innerHTML = response.wind_degrees;
+		sunrise.innerHTML = response.sunrise;
+		sunset.innerHTML = response.sunset;
+	})
+	.catch(err => console.error(err));
+};
+
+submit.addEventListener("click", (e) => {
+	e.preventDefault()
+	getWeather(city.value);
+});
+
+getWeather("Chandigarh");
+document.addEventListener('DOMContentLoaded', function() {
+	let carouselItems = document.querySelectorAll('.carousel-item');
+	let currentIndex = 0;
+
+	function showNextItems() {
+	  carouselItems[currentIndex].classList.remove('active');
+	  currentIndex = (currentIndex + 1) % carouselItems.length;
+	  carouselItems[currentIndex].classList.add('active');
+	}
+
+	let nextButton = document.querySelector('[data-bs-slide="next"]');
+	nextButton.addEventListener('click', showNextItems);
+  });
+
+  const Shanghai_temp=(Shanghai)=>{
+
+  }
+  
+
+  //
+  function addClass(element, className) {
+	if (element.classList) {
+	  element.classList.add(className);
+	} else {
+	  element.className += ' ' + className;
+	}
+  }
+
+  // Function to remove a class from an element
+  function removeClass(element, className) {
+	if (element.classList) {
+	  element.classList.remove(className);
+	} else {
+	  var reg = new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi');
+	  element.className = element.className.replace(reg, ' ');
+	}
+  }
+
+   function submitconfirmation() {
+	let box=document.getElementById("message");
+	let a= document.getElementById("submit-submit");
+	
+
+	box.style.visibility="hidden";
+	a.style.visibility="hidden";
+	
+
+	let ele=document.getElementById("writeback");
+	ele.innerHTML="We'll notify you!";
+};
+
+  // Function to check screen size and add or remove class accordingly
+  function checkScreenSize() {
+	var slider1 = document.getElementById('slider1');
+	var slider2 = document.getElementById('slider2');
+	var slider3 = document.getElementById('slider3');
+	var slider4 = document.getElementById('slider4');
+	var spacer = document.getElementById('spacer');
+	
+	if (window.innerWidth <= 768) { // Adjust the screen size threshold as needed
+	  addClass(slider2, 'd-none');
+	  addClass(slider4, 'd-none');
+	  addClass(spacer, 'hei');
+
+	  removeClass(slider1,'d-none');
+	  removeClass(slider3,'d-none');
+	  
+	} else {
+		addClass(slider1, 'd-none');
+		addClass(slider3, 'd-none');
+		removeClass(slider2,'d-none');
+		removeClass(slider4,'d-none');
+		removeClass(spacer,'hei');
+
+	}
+  }
+
+  // Initial check when the page loads
+  checkScreenSize();
+
+  document.addEventListener('DOMContentLoaded', checkScreenSize);
+
+// Add this event listener to trigger checkScreenSize when the window is resized
+window.addEventListener('resize', checkScreenSize);
+</script>
+</body>
+</html>
